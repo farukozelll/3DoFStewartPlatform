@@ -1,5 +1,8 @@
 # 3DoFStewartPlatform
- 3 eksende hareket eden bir stewart platformu tasarlanmış ve kodlanmıştır.Stewart Platformları hareket ve konumlandırma için oluşturulmuş paralel manipülatörlerdir. Platform, 2 plaka arasında plakaların hareketini ve kontrolünü sağlamak için 6 adet ayarlanabilir ayak içerir. Platformun temel amacı, belirli amaçlar için bir test ortamı oluşturmaktır.
+
+# PROJE ÖZETİ
+ Stewart Platform Mekanizması alt kısmı hareketsiz bir plakaya bağlı, üst kısmı ise uzaysal hareketi sağlaması amacıyla hazırlanmış bir uç işlevciye bağlı altı adet doğrusal tahrik elemanından oluşan; üç öteleme ve üç dönme hareketi yapmaya imkân veren paralel bir mekanizmadır. Bu mekanizma ilk olarak 1965 ‘de D.Stewart tarafından uçuş simülatörü olarak sunulmuş ve zamanla önemi artmıştır. Bu çalışmada Stewart Platformunun kinematik ve dinamik davranışları incelenmiş, bu davranışlar bilgisayar ortamında gerçek zamanlı olarak simüle edilmiştir.
+
 Bu amaçlar:
 1.Uçuş simülasyonları
 2.Animatronik
@@ -7,6 +10,15 @@ Bu amaçlar:
 4. Sualtı araştırması
 5.Deprem simülasyonları
 6. Robotik vb.
+
+
+#1. STEWART PLATFORMU NEDİR?   
+Bir ısıtma platformu, konumlandırma ve hareket kontrolü için kullanılan paralel bir manipülatör cihazıdır. Cihaz, tam olarak ayarlanmasını ve kontrol edilmesini sağlayan altı ayarlanabilir ayakla birleştirilen iki plakadan oluşur. Başlangıçta lastikleri test etmek için kullanılmasına rağmen, stewart platformu yakında havacılık, otomotiv ve işleme endüstrilerinde uygulamalar buldu. Uçuş simülatörlerinin gerektirdiği kesin hareketi sağlamada kullanımı belki de en iyisidir.
+Bir stewart cihazının taban plakası, cihazın ayarlanamayan tek kısmıdır. Genellikle zemine veya başka bir sabit yüzeye cıvatalanır. Altı ayak taban plakasını ayarlanabilir üst plakaya bağlar. Bacakların her iki ucu da geniş hareket alanı sağlayan üniversal bağlantılar kullanılarak bağlanır. Bacakların her biri bir silindir eklemine sahiptir, böylece bacak gerektiği gibi teleskopik olarak dışarı fırlayabilir veya çökebilir.
+Altı ayaklı tasarım nedeniyle, stewart platformuna bazen hexapod denir. Bu terim, altı bacaklı herhangi bir cihazı tanımlamak için kullanılabilir. Aynı zamanda platform, paralel manipülatör olarak da sınıflandırılır, yani platformun bacakları sadece tabana ve üst plakaya tutturulur ancak birbirlerine tutturulmaz. Buna karşılık, seri bir manipülatör, eklemlerle birbirine bağlanan bir dizi sert yapı kullanır. Bu rijit bölümlerden birinin manipülasyonu, bundan sonraki bölümlerin pozisyonunu doğrudan etkiler.
+Paralel manipülatörler, seri manipülatörlere göre çeşitli avantajlar gösterir. Örneğin, bir paralel manipülatör daha hassas bir şekilde kontrol edilebilir, çünkü hatalar tek bir bacağın içinde bulunur. Bir seri manipülatör ile, sert yapılardan birinin hareketindeki bir hata, takip eden yapıların her birinde çoğaltılır. Paralel manipülatörler, çok daha büyük ve daha ağır iş yüklerini kaldırabilir ve seri manipülatörlerden daha iyi kütle-kütle oranına sahiptir.
+Stewart platformu olacak cihaz ilk kez 1954'te İngiltere'den V. Eric Gough tarafından tasarlandı. Lastiklerin testinde kullanılır. On yıldan kısa bir süre sonra, D. Stewart, İngiltere Makine Mühendisleri Enstitüsü'ne uçuş simülatörlerinde kullanılmak üzere ayarlanabilir bir platform öneren bir bildiri sundu.
+
 
 ![image](https://user-images.githubusercontent.com/66810191/170566531-6cf9c466-d72b-48c8-8d9f-929fe52a0162.png)
 
@@ -34,6 +46,21 @@ z = z’
 ### Tabana göre platformun tam dönüş matrisi:
 ![image](https://user-images.githubusercontent.com/66810191/170566882-5a39b6c2-62e3-4a66-b0dd-612048d01f7c.png)
 
-# Platformun en son sürümü:
+# 1.1.	STEWART PLATFORM KONTROLÜ
 
-![image](https://user-images.githubusercontent.com/66810191/170566992-c665df26-7007-42f3-a0ce-fc319bc9459d.png)
+Platformun kontrolü sağlanırken servo kollarına bağlı olan çubukların bağlantı noktaları alt platformun merkezine göre hesaplanır. Ardından üst platformun tellere bağlantı noktaları üst platformun merkezine göre hesaplanır. Ardından alt platformun “z” kadar üstünde bir rijit cisim olduğu kabul edilerek bu cismin konumu ve dönme açıları hesaplanarak servolara gerekli döndürme değerleri gönderilir. 
+Döndürme hesabı üst platformun bağlantı noktası ile alt platformun bağlantı noktasını birleştiren telin uzunluğunun ne kadar olması gerektiği hesaplanarak sağlanır. Bu iki bağlantı noktası arasındaki fark Pisagor teoremi ile kolayca bulunur. Alt platform ile üst platform arasındaki X, Y, Z eksenleri uzaklıkları bulunup kareleri toplanıp karekökü alınarak gerekli uzaklık hesaplanır ve servonun o uzaklığı sağlaması için gereken sinyal elde edilmiş olur.
+
+![1](https://user-images.githubusercontent.com/47918693/211142753-f84fbbc1-dd39-4a86-8462-22cd0aa17dc2.jpg)
+
+# 2.1.1. ALT VE ÜST PLATFORM
+Platform 3x3 çapraz bağlıdır.  Platformun bu şekilde seçilmesinin sebebi 3 adet servo motor ile gerçekleştirileceğinden motorlar arasındaki açının 120 derece olmasını sağlamaktır. Platformun alt ve üst plakaları SOLIDWORKS programı aracılığıyla çizilip 3D Printer ile hazırlanmıştır.
+![4](https://user-images.githubusercontent.com/47918693/211142853-4a616e7b-3aca-4fd9-a0f4-6ed5cf175be1.jpg)
+
+  #   2.2. BAĞLANTI ŞEMASI
+  ![6](https://user-images.githubusercontent.com/47918693/211142807-549806fa-8c1d-4aa5-a5fd-607c1e68ec04.png)
+
+# Platformun en son sürümü:
+![5](https://user-images.githubusercontent.com/47918693/211142773-0dbda12e-8f09-4015-a1c0-1c5b1973f408.jpg)
+
+
