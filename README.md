@@ -1,4 +1,4 @@
-# 3DoFStewartPlatform# 3DOF Stewart Platform 
+# 3DoFStewartPlatform
  3 eksende hareket eden bir stewart platformu tasarlanmış ve kodlanmıştır.Stewart Platformları hareket ve konumlandırma için oluşturulmuş paralel manipülatörlerdir. Platform, 2 plaka arasında plakaların hareketini ve kontrolünü sağlamak için 6 adet ayarlanabilir ayak içerir. Platformun temel amacı, belirli amaçlar için bir test ortamı oluşturmaktır.
 Bu amaçlar:
 1.Uçuş simülasyonları
